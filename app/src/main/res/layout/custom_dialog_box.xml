@@ -8,6 +8,8 @@
         android:id="@+id/txt_Image_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:contextClickable="false"
+        android:elegantTextHeight="true"
         android:gravity="center"
         android:text="Nombre de la imagen"
         android:textSize="20sp" />
