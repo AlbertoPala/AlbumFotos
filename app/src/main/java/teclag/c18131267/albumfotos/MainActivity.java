@@ -33,7 +33,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     public static final int CODIGO_CAPTURA_FOTO = 123;
-    private Uri uriFoto;
+    private  Uri UriFOTO;
     private String ruta;
 
     ArrayList<Integer> imagenes = new ArrayList<>(Arrays.asList(
@@ -123,5 +123,24 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent ( this, VideoActivity.class ) ;
         intent.putExtra ( "rutaVideo", ruta );
         startActivity ( intent );
+    }
+
+    //Metodo
+    public void btnCapturaSimpleClick ( View v )
+    {
+        // VAMOS A DARLE NOMBRE A LOS ARCHIVOS- QUE SE GUARDE CON LA FECHA DONDE LA SE TOMO LA FOTOGRAFIA
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyymmddHHmmss" );//(20221117843)
+        String nombreFotografiafecha = simpleDateFormat.format( new Date() );
+        String archivoFoto = "Foto" + nombreFotografiafecha + ".jpg";
+
+        File fileFoto = new File( Environment.getExternalStorageDirectory().getAbsolutePath() +
+                File.separator + "DCIM" +File.separator + archivoFoto );
+
+        //UriFOTO = FileProvider.getUriForFile( this , BuildConfig.APPLICATION_ID + ".provider", fileFoto );
+        UriFOTO = Uri.fromFile( fileFoto );
+
+        //CREAMOS AL INTENT QUE LLAMARA A LA APP DE DE LA CAMARA
+        Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+        intent.putExtra( MediaStore.EXTRA_OUTPUT, UriFOTO );
     }
 }
